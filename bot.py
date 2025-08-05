@@ -4,6 +4,7 @@ from config import BOT_TOKEN, WEATHER_API_KEY
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
+
 # Приветствие от бота
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -11,21 +12,19 @@ def start(message):
     bot.send_animation(message.chat.id, r'https://usagif.com/wp-content/uploads/2021/01/dobro-pozhlovat-m.gif')
 
 
-
-
-
 # Функционал
 @bot.message_handler(content_types=['text'])
 def messages(message):
     if message.text.lower() not in ['спасибо', 'спс', 'рахмет']:
         weather_now(message)
-    elif message.text.lower() in ['привет','здравствуй','приветик']:
+    elif message.text.lower() in ['привет', 'здравствуй', 'приветик']:
         hello(message)
     else:
         thanks(message)
 
+
 def hello(message):
-        bot.send_message(message.chat.id, 'Привет, привет мой друг! Выбирай город')
+    bot.send_message(message.chat.id, 'Привет, привет мой друг! Выбирай город')
 
 
 def thanks(message):
@@ -71,7 +70,6 @@ def weather_now(message):
                               f"Скорость ветра {data['wind']['speed']} м/с")
     except KeyError:
         bot.send_message(message.chat.id, 'Я не знаю такого города, может попробуешь еще раз?)')
-
 
 
 if __name__ == '__main__':
